@@ -14,19 +14,20 @@ do
   package.loaded[name_0_] = module_0_
   _0_0 = module_0_
 end
-local function _1_(...)
-  _0_0["aniseed/local-fns"] = {require = {a = "aniseed.core", ce = "conjure.eval", extract = "conjure.extract", fennel = "aniseed.deps.fennel", mapping = "conjure.mapping", nvim = "aniseed.nvim", str = "aniseed.string", util = "aniseed.nvim.util"}}
-  return {require("aniseed.core"), require("conjure.eval"), require("conjure.extract"), require("aniseed.deps.fennel"), require("conjure.mapping"), require("aniseed.nvim"), require("aniseed.string"), require("aniseed.nvim.util")}
+local function _2_(...)
+  _0_0["aniseed/local-fns"] = {require = {a = "aniseed.core", bridge = "conjure.bridge", ce = "conjure.eval", extract = "conjure.extract", fennel = "aniseed.deps.fennel", mapping = "conjure.mapping", nvim = "aniseed.nvim", str = "aniseed.string", util = "aniseed.nvim.util"}}
+  return {require("aniseed.core"), require("conjure.bridge"), require("conjure.eval"), require("conjure.extract"), require("aniseed.deps.fennel"), require("conjure.mapping"), require("aniseed.nvim"), require("aniseed.string"), require("aniseed.nvim.util")}
 end
-local _2_ = _1_(...)
-local a = _2_[1]
-local ce = _2_[2]
-local extract = _2_[3]
-local fennel = _2_[4]
-local mapping = _2_[5]
-local nvim = _2_[6]
-local str = _2_[7]
-local util = _2_[8]
+local _1_ = _2_(...)
+local a = _1_[1]
+local bridge = _1_[2]
+local ce = _1_[3]
+local extract = _1_[4]
+local fennel = _1_[5]
+local mapping = _1_[6]
+local nvim = _1_[7]
+local str = _1_[8]
+local util = _1_[9]
 do local _ = ({nil, _0_0, {{}, nil}})[2] end
 local init = nil
 do
@@ -34,6 +35,11 @@ do
   do
     local v_0_0 = nil
     local function init0()
+      a.println("init such yes")
+      nvim.ex.augroup("clj_helpers")
+      nvim.ex.autocmd_()
+      nvim.ex.autocmd("FileType", "clojure", bridge["viml->lua"]("clj-helpers.main", "mappings", {}))
+      return nvim.ex.augroup("END")
     end
     v_0_0 = init0
     _0_0["init"] = v_0_0
@@ -41,6 +47,21 @@ do
   end
   _0_0["aniseed/locals"]["init"] = v_0_
   init = v_0_
+end
+local mappings = nil
+do
+  local v_0_ = nil
+  do
+    local v_0_0 = nil
+    local function mappings0()
+      return mapping.buf("n", "js", "clj-helpers.main", "jump-to-current-kw-symbol")
+    end
+    v_0_0 = mappings0
+    _0_0["mappings"] = v_0_0
+    v_0_ = v_0_0
+  end
+  _0_0["aniseed/locals"]["mappings"] = v_0_
+  mappings = v_0_
 end
 local is_ns_keyword_3f = nil
 do
@@ -184,4 +205,4 @@ do
   _0_0["aniseed/locals"]["jump-to-current-kw-symbol"] = v_0_
   jump_to_current_kw_symbol = v_0_
 end
-return mapping.buf("n", "js", "clj-helpers.main", "jump-to-current-kw-symbol")
+return nil

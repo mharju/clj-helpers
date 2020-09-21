@@ -6,9 +6,18 @@
             mapping conjure.mapping
             nvim aniseed.nvim
             util aniseed.nvim.util
+            bridge conjure.bridge
             fennel aniseed.deps.fennel}})
 
-(defn init [])
+(defn init []
+  (nvim.ex.augroup :clj_helpers)
+  (nvim.ex.autocmd_)
+  (nvim.ex.autocmd :FileType "clojure"
+    (bridge.viml->lua :clj-helpers.main :mappings {}))
+  (nvim.ex.augroup :END))
+
+(defn mappings []
+  (mapping.buf :n "js" :clj-helpers.main :jump-to-current-kw-symbol))
 
 (defn- is-ns-keyword? [content]
   (not (a.nil? (string.find content "^:[:%w][%w%.%-]*/"))))
@@ -53,5 +62,3 @@
   (let [{: content} (extract.word)]
     (when (not (a.empty? content))
       (jump-to-kw-symbol content))))
-
-(mapping.buf :n "js" :clj-helpers.main :jump-to-current-kw-symbol)
