@@ -17,7 +17,7 @@
   (nvim.ex.augroup :END))
 
 (defn mappings []
-  (mapping.buf :n "js" :clj-helpers.main :jump-to-current-kw-symbol))
+  (mapping.buf :n nil "js" :clj-helpers.main :jump-to-current-kw-symbol))
 
 (defn- is-ns-keyword? [content]
   (not (a.nil? (string.find content "^:[:%w][%w%.%-]*/"))))
@@ -50,7 +50,6 @@
           (string.gsub "[.]" "/")
           (string.gsub "[%-]" "_"))
       ".cljs"))
-
 
 (defn jump-to-kw-symbol [symbol]
   (let [{: resolved-ns : keyword} (resolve-namespace symbol)]
